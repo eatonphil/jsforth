@@ -61,7 +61,29 @@ debug - toggles console debug mode
 
 # Examples
 
-## Fibonacci
+## Functions
+
+```
+>>> : plus + ;
+    <ok>
+>>> 2 3 plus
+    5 <ok>
+```
+
+## Loops
+
+### Power Function
+
+```
+>>> : pow 1 do dup + ;
+    <ok>
+>>> 2 3 pow .s
+    8 <ok>
+```
+
+## Recursion
+
+### Fibonacci
 
 ```
 >>> : fib dup 1 > if 1 - dup fib swap 1 - fib + then ;
@@ -70,7 +92,7 @@ debug - toggles console debug mode
     8 <ok>
 ```
 
-## Factorial
+### Factorial
 
 ```
 >>> : fac dup 1 > if dup 1 - fac * then dup 0 = if drop 1 then dup 1 = if drop 1 then ;
