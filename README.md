@@ -13,7 +13,7 @@ Alternatively, it can be run locally by navigating to the provided index.html fi
 # Built-in Commands
 
 ```
-+ - / * ^ < > <= >= =  
++ - / * ^ < > <= >= = != 
     ex: a b + // displays: Stack: (a+b)  
 
 . - returns the top element of the Stack  
