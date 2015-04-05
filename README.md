@@ -2,7 +2,7 @@
 
 This is a micro-Forth implementation in Javascript. It is built around an HTML REPL.
 
-I wrote it two years ago during a PL course in college. The code is not the greatest; it only took a few hours to throw together. That said, it is pretty cool.
+I wrote this two years ago on a Friday night during a PL course in college. The code is not the greatest; it only took a few hours to throw together. That said, it is pretty cool.
 
 # Try It Out
 
