@@ -53,7 +53,8 @@ clear - empties the Stack
     ex: a b c : add2 + + ; add2 // displays: nothing; Stack: (a+b+c)  
 
 allocate - reallocates the max recursion for a single line of input  
-    ex: 10 allocate  
+    ex: 10 allocate
+
 cls - clears the screen  
 
 debug - toggles console debug mode
