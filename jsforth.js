@@ -39,7 +39,7 @@ if (!String.prototype.trim) {
  \nwww.forth.com is also a great resource. \
  \nPlease feel free to submit any bugs/comments/suggestions to peaton<at>haverford<dot>edu \
  \n\nSupported Commands: \
- \n+ - / * ^ < > <= >= = \
+ \n+ - / * ^ < > <= >= = != \
  \n    ex: a b + // displays: Stack: (a+b) \
  \n. - returns the top element of the Stack \
  \n    ex: a b . // displays: b; Stack: a \
@@ -190,7 +190,7 @@ function interpret(input) {
 							main.push(first);
 						}
 					}
-				} else if (token == "+" || token == "-" || token == "*" || token == "^" || token == "/" || token == "swap" || token == "over" || token == "pick" || token == "=" || token == ">=" || token == "<=" || token == ">" || token == "<" || token == "do") {
+				} else if (token == "+" || token == "-" || token == "*" || token == "^" || token == "/" || token == "swap" || token == "over" || token == "pick" || token == "=" || token == "!=" || token == ">=" || token == "<=" || token == ">" || token == "<" || token == "do") {
 					if (main.length < 2) {
 						FORTH_ERROR = STACK_UNDERFLOW;
 						FORTH_ERROR_MESSAGE = "Too few arguments: \""+token+"\".";
@@ -274,6 +274,11 @@ function interpret(input) {
 							second = Number(main.pop());
 							first = Number(main.pop());
 							main.push((first==second)?Number(FORTH_TRUE):FORTH_FALSE);
+						} else if (token == "!=")
+						{
+							second = Number(main.pop());
+							first = Number(main.pop());
+							main.push((first!=second)?Number(FORTH_TRUE):FORTH_FALSE);
 						} else if (token == "do")
 						{
 							var rest = Array();

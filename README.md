@@ -61,6 +61,40 @@ debug - toggles console debug mode
 
 # Examples
 
+## Basics
+
+```
+>>> 3 4 +
+    <ok>
+>>> .s
+    7 <ok>
+>>> 3 4 - .s
+    -1 <ok>
+>>> 3 4 < .s
+    1 <ok>
+>>> 3 4 > .s
+    0 <ok>
+>>> 3 dup .s
+    3 3 <ok>
+>>> = .s
+    1 <ok>
+>>> drop
+    <ok>
+>>> .s
+    <ok>
+```
+
+## Conditions
+
+```
+>>> 3 4 < if 11 then 12
+    <ok>
+>>> .s
+    11 12 <ok>
+>>> 3 4 > if 12 then 14 .s
+    14
+```
+
 ## Functions
 
 ```
