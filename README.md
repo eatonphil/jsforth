@@ -6,7 +6,7 @@ I wrote it two years ago during a PL course in college. The code is not the grea
 
 # Try It Out
 
-A demonstration REPL is available via CodePen [here](http://codepen.io/anon/pen/MYdebL).
+A demonstration REPL is available via CodePen [here](http://codepen.io/eatonphil/pen/YPbWVN?editors=001).
 
 Alternatively, it can be run locally by navigating to the provided index.html file.
 
