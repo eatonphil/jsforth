@@ -37,7 +37,7 @@ if (!String.prototype.trim) {
  var FORTH_HELP = "\For more documentation on the FORTH language, visit http://www.complang.tuwien.ac.at/forth/gforth/Docs-html/ \
  \nFor a concise tutorial/introduction to FORTH, visit http://www.ece.cmu.edu/~koopman/forth/hopl.html \
  \nwww.forth.com is also a great resource. \
- \nPlease feel free to submit any bugs/comments/suggestions to peaton<at>haverford<dot>edu \
+ \nPlease feel free to submit any bugs/comments/suggestions to me<at>eatonphil<dot>com \
  \n\nSupported Commands: \
  \n+ - / * ^ < > <= >= = != \
  \n    ex: a b + // displays: Stack: (a+b) \
@@ -414,7 +414,7 @@ function init_interpreter() {
 	/*
 	 * Set interpreter style settings.
 	 */
-	 terminal.setAttribute("style", "width:100%;position:absolute;left:0;right:0;top:0;bottom:0;background-color:black;color:red;font-size:20px;font-family:\"Courier New\"");
+	 terminal.setAttribute("style", "width:100%;height:100%;position:absolute;left:0;right:0;top:0;bottom:0;background-color:black;color:red;font-size:20px;font-family:\"Courier New\"");
 	 terminal.setAttribute("resize", "none");
 	 terminal.setAttribute("spellcheck", "false");
 	 terminal.focus();
