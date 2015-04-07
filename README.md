@@ -110,7 +110,7 @@ debug - toggles console debug mode
 ### Power Function
 
 ```
->>> : pow 1 do dup + ;
+>>> : pow over swap 1 do over * loop swap drop ;
     <ok>
 >>> 2 3 pow .s
     8 <ok>
