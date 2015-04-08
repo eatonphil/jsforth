@@ -143,9 +143,11 @@ function interpret(input) {
 					FORTH_ALLOCATION = Number(main.pop());
 					return "Stack max reallocated: "+FORTH_ALLOCATION;
 				} else if (token == ".s") {
-					return main.join(" ");
+					printBuffer.push(main.join(" "));
+                    continue;
 				} else if (token == ".c") {
-                    return String.fromCharCode(main[main.length-1]);
+                    printBuffer.push(String.fromCharCode(main[main.length-1]));
+                    continue;
                 }
 
 				if (token == "." || token == "if" || token == "invert" || token == "drop" || token == "dup")// if token represents a binary operator
@@ -396,13 +398,14 @@ function setKeyPressAction(terminal) {
 			var last_line = input[input.length - 1].slice(FORTH_PROMPT.length-1);
 			RECUR_COUNT = 0;
 			var result = interpret(last_line);
+            if (printBuffer.length) printBuffer.push(" ");
 			if (FORTH_ERROR == "") {
 				if (result)
 					result += " ";
 				else
 					result = "";
 				if (terminal.value !== "")
-					displayPrompt("\n    " + result + FORTH_OK);
+					displayPrompt("\n    " + printBuffer.join("") + result + FORTH_OK);
 				else // clear screen
 					terminal.value = ">>> ";
 			} else {
@@ -419,6 +422,7 @@ function setKeyPressAction(terminal) {
 				terminal.value += " ";
 			}
 		}
+        printBuffer = [];
 	};
 }
 
@@ -441,6 +445,7 @@ function init_interpreter() {
 	function init_env() {
 		window.terminal = document.getElementById("interpreter");
 		window.main = [];
+        window.printBuffer = [];
 	}
 
 	window.onload = function() {
