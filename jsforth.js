@@ -51,6 +51,10 @@ if (!String.prototype.trim) {
  \n    ex: a b drop // displays: nothing; Stack: a \
  \npick - puts a copy of the nth element on the top of the Stack \
  \n    ex: a b c 2 pick // displays: nothing; Stack: a b c a \
+ \nrot - rotates the Stack clockwise \
+ \n    ex: a b c rot // displays: nothing; Stack: b c a \
+ \n-rot - rotates the Stack counter-clockwise \
+ \n    ex: a b c -rot // displays: nothing; Stack: c a b \
  \nswap - swaps the top two elements \
  \n    ex: a b // displays: nothing; Stack: b a \
  \nover - copies the second-to-last element to the top of the Stack \

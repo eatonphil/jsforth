@@ -31,6 +31,12 @@ drop - pops off the top element without returning it
 pick - puts a copy of the nth element on the top of the Stack  
     ex: a b c 2 pick // displays: nothing; Stack: a b c a  
 
+rot - rotates the Stack clockwise
+    ex: a b c rot // displays: nothing; Stack: b c a
+
+-rot - rotates the Stack counter-clockwise
+    ex: a b c -rot // displays: nothing; Stack c a b
+
 swap - swaps the top two elements  
     ex: a b // displays: nothing; Stack: b a  
 
