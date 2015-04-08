@@ -194,7 +194,7 @@ function interpret(input) {
 							main.push(first);
 						}
 					}
-				} else if (token == "+" || token == "-" || token == "*" || token == "^" || token == "/" || token == "swap" || token == "over" || token == "pick" || token == "=" || token == "!=" || token == ">=" || token == "<=" || token == ">" || token == "<" || token == "do") {
+				} else if (token == "+" || token == "-" || token == "*" || token == "^" || token == "/" || token == "swap" || token == "over" || token == "pick" || token == "=" || token == "!=" || token == ">=" || token == "<=" || token == ">" || token == "<" || token == "do" || token == "rot" || token == "-rot") {
 					if (main.length < 2) {
 						FORTH_ERROR = STACK_UNDERFLOW;
 						FORTH_ERROR_MESSAGE = "Too few arguments: \""+token+"\".";
@@ -300,6 +300,15 @@ function interpret(input) {
 							if (rest.length)
 								interpret(rest.join(" "));
 						}
+                        else if (token == "rot")
+                        {
+                            var last = main.shift();
+                            main.push(last);
+                        }
+                        else if (token == "-rot") {
+                            var first = main.pop();
+                            main.unshift(first);
+                        }
 					}
 				// These functions have no requirements or are not found.
 				} else {
