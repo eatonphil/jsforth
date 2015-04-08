@@ -45,6 +45,8 @@ if (!String.prototype.trim) {
  \n    ex: a b . // displays: b; Stack: a \
  \n.s - displays the current Stack and the size \
  \n    ex: a b .s // displays: a b <2>; Stack: a b \
+ \n.c - displays the top of the Stack as a character \
+ \n    ex: 0 97 .c // displays: a <ok>; Stack: 0 97 \
  \ndrop - pops off the top element without returning it \
  \n    ex: a b drop // displays: nothing; Stack: a \
  \npick - puts a copy of the nth element on the top of the Stack \
@@ -142,7 +144,9 @@ function interpret(input) {
 					return "Stack max reallocated: "+FORTH_ALLOCATION;
 				} else if (token == ".s") {
 					return main.join(" ");
-				}
+				} else if (token == ".c") {
+                    return String.fromCharCode(main[main.length-1]);
+                }
 
 				if (token == "." || token == "if" || token == "invert" || token == "drop" || token == "dup")// if token represents a binary operator
 				{

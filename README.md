@@ -22,6 +22,9 @@ Alternatively, it can be run locally by navigating to the provided index.html fi
 .s - displays the current Stack and the size  
     ex: a b .s // displays: a b <2>; Stack: a b  
 
+.c - displays the top of the Stack as a character
+    ex: 0 97 .c // displays: a <ok>; Stack: 0 97
+
 drop - pops off the top element without returning it  
     ex: a b drop // displays: nothing; Stack: a  
 
