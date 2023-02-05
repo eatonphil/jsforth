@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>JSForth User's Manual</title>
+	<link rel="shortcut icon" href="forth.png" />
+	<style>
+	pre {background:#DDD;padding:2px;}
+	code {background:#DDD;}
+	header {display:flex;}
+	.logo {width: auto;height:64px;}
+	</style>
+</head>
+<body>
+	<header>
+		<img src="forth.png" alt="" class="logo" />
+		<h1>JSForth User's Manual</title>
+	</header>
+	<nav>
+		<h1>Contents</h1>
+		<ol>
+			<li>
+				<a href="#intro">Overview</a>
+				<ol>
+					<li><a href="#noobz">For beginners</a></li>
+					<li><a href="#pros">For experienced programmers</a></li>
+					<li><a href="#roadmap">Roadmap to version 1.0</a></li>
+					<li><a href="#terminal">Using the terminal</a></li>
+				</ol>
+			</li><li>
+				<a href="#words">Supported standard Forth words</a>
+				<ul>
+					<li><a href="#store">@ and !</a></li>
+					<li><a href="#leftParen">(</a></li>
+					<li><a href="#comment">\</a></li>
+					<li><a href="#dot">.</a></li>
+					<li><a href="#dotS">.S</a></li>
+					<li><a href="#emit">EMIT</a></li>
+					<li><a href="#bl">BL</a></li>
+					<li><a href="#cr">CR</a></li>
+					<li><a href="#space">SPACE</a></li>
+					<li><a href="#spaces">SPACES</a></li>
+					<li><a href="#plus">+</a></li>
+					<li><a href="#minus">-</a></li>
+					<li><a href="#times">*</a></li>
+					<li><a href="#slash">/</a></li>
+					<li><a href="#mod">MOD</a></li>
+					<li><a href="#lshift">LSHIFT and RSHIFT</a></li>
+					<li><a href="#andOrXor">AND, OR and XOR</a></li>
+					<li><a href="#gt">></a></li>
+					<li><a href="#lt"><</a></li>
+					<li><a href="#equals">=</a></li>
+					<li><a href="#notEqual"><></a></li>
+					<li><a href="#gte">>=</a></li>
+					<li><a href="#lte"><=</a></li>
+					<li><a href="#dup">DUP</a></li>
+					<li><a href="#drop">DROP</a></li>
+					<li><a href="#over">OVER</a></li>
+					<li><a href="#pick">PICK and ROLL</a></li>
+					<li><a href="#rot">ROT and -ROT</a></li>
+					<li><a href="#swap">SWAP</a></li>
+					<li><a href="fill">FILL</a></li>
+					<li><a href="#2dup">2DUP</a></li>
+					<li><a href="#2drop">2DROP</a></li>
+					<li><a href="#2over">2OVER</a></li>
+					<li><a href="#2swap">2SWAP</a></li>
+					<li><a href="#2store">2! and 2@</a></li>
+					<li><a href="#others">To be documented</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#JSForthWords">JSForth-specific words</a>
+				<ul>
+					<li><a href="#pow">^</a></li>
+					<li><a href="#clear">CLEAR</a></li>
+					<li><a href="#cls">CLS</a></li>
+					<li><a href="#debug">DEBUG</a></li>
+					<li><a href="#js">JS</a></li>
+					<li><a href="#prompt">PROMPT</a></li>
+				</ul>
+			</li>
+		</ol>
+	</nav>
+	<main>
+		<h1 id="intro">Overview</h1>
+		<h2 id="noobz">For beginners</h2>
+		<p>
+			This is a Forth implementation in Javascript, with a REPL using <a href="https://xtermjs.org/" target="_blank">xterm.js</a>.
+			It started out as a student's college assignment, but it has the potential to be something much cooler and more useful.
+			For more info on Forth, see <a href=https://www.forth.com/starting-forth/">Starting FORTH</a>, one of the best tutorials
+			- on any language - I've ever seen (and I've been coding for 10+ years so I've seen a lot, lol).  Forth is a stack-based
+			language, low-level in some ways and yet high-level in others.  The best (or at least funniest) description I ever read is
+			in <a href="https://hackaday.com/2017/01/27/forth-the-hackers-language/" target="_blank">this article</a>: "Forth is what
+			you’d get if Python slept with Assembly Language: interactive, expressive, and without syntactical baggage, but still very
+			close to the metal. Is it a high-level language or a low-level language? Yes! Or rather, it’s the shortest path from one to
+			the other."  So true! 🤣
+		</p>
+		<h2 id="pros">For experienced programmers</h2>
+		<p>
+			All joking aside, the simplicity and power of Forth is hard to ignore.  It's as old as C, maybe older, and yet (like C) is
+			still very relevant in this decade.  Of course we retro-lovers can use it on 8-bit computers, but it's not just a "toy" like
+			8-bit BASICs.  It's used in embedded systems, and (strange but awesome) in outer-space-related code!  Or so they say on the
+			interwebz.  I've also seen very polished, proprietary Forths for desktop and mobile devices, complete with words that call
+			native APIs and all the bells and whistles a programmer could possibly want.  Some examples include
+			<a href="https://8th-dev.com/" target="_blank">8th</a> and <a href="https://www.forth.com/swiftforth/" target="_blank">SwiftForth</a>
+			(I haven't used either, but I like the sound of 8th especially).  But those aren't freed software.  So, the FOSS community
+			created <a href="https://gforth.org/" target="_blank">Gforth</a>, <a href="https://github.com/philburk/pforth/" target="_blank">Pforth</a>,
+			and many, many more.  But surprisingly, there doesn't seem to have been any serious-ish attempt at a Forth for the web.
+		</p>
+		<p>Anyway, you can try it out <a href="https://geekonskates.com/apps/jsforth/" target="_blank">here</a> on one of the contributors' websites, or clone the Git repo and run the index.html file.  You don't even need a server.</p>
+		<h2 id="roadmap">Roadmap to version 1.0</h2>
+		<p>
+			No two Forth variants are exactly the same.  There are differences between Gforth and SwiftForth, 8th and Pforth, etc. to say nothing of all
+			the embedded and retro Forths out there.  Even with the same code base, Gforth for MS-DOS is not going to be the same as Gforth for Linux.
+			A <a href="https://forth-standard.org/" target="_blank">standard</a> does exist, but there's a saying that "If you've seen one Forth... you've
+			seen one Forth."  This makes sense, because every time someone builds a Forth, they usually have some specialized functionality in mind that
+			is not possible anywhere else.  So while I do hope to include a <em>TON</em> of the standard words, this Forth isn't going to be "compliant"
+			with any super-strict standards.  But frankly, even languages that have hard-and-fast standards are not "set in stone".  Like C - it all depends
+			on the compiler.  Or Python (who's still Netflix'n'chilling with Assembly 🤣) or PHP or even Java - it's all about the interpreter/runtime.  So,
+			JSForth will try to be predictable for people who know Forth well... but we're not gonna stress the standards.
+		</p><p>
+			Instead, allow me to share my vision for this Forth.  Put simply, all the best parts of Forth, plus all the best parts of the web.  Like what if
+			you could do something like this:
+			<pre>\ Easily set up a canvas, include remote code using AJAX/Fetch, play audio, read a game controller and 
+include "http://mywebsite.com/game.fs"
+key s" theme.ogg" play
+canvas-on black fill s" Mario.png" draw-image
+start-game
+
+\ Or, how about a little DOM stuff
+include html5.fs    \ from localStorage
+s" h1" createElement dup s" test" css-class
+dup docBody append dup s" Heading text here" innerText
+
+\ Or, working with localStorage, web APIs, JSON etc... Maybe not the best idea,
+\ but should be easily doable cuz Forth rocks and a JS Forth should be able to do that.</pre>
+			I'd like to add an <code>EDIT</code> word for working with files (in localStorage or sending to a server),
+			I'd like to add a few missing words that are harder to make work, like <code>ELSE</code>, the sky's the limit.
+			If Forth is an operating system, then JSForth is an OS that runs anywhere - how awesome is that!
+		</p>
+		<h2 id="terminal">Using the terminal</h2>
+		<p>
+			The terminal is a bit on the old-school side.  Everything is done using the keyboard, and the keyboard navigation is...
+			well, not what you'd expect in most graphical programs.  Here is the full list of supported keys and what they do:
+			<table border="1" cellpadding="4" cellspacing="0">
+				<thead><tr>
+					<th>Key</th>
+					<th>Action</th>
+				</tr></thead><tbody>
+					<tr>
+						<td>Letters, numbers, or punctuation</td>
+						<td>
+							Of course, these keys type the character on the screen, as usual.  The big difference though, is that
+							if you move back (using the left arrow or Home keys) you'll be typing over what you typed before.  It's
+							kind of like what happens if you press the Insert key in a regular text editor.
+						</td>
+					</tr><tr>
+						<td>Home</td>
+						<td>Moves to the start of the line</td>
+					</tr><tr>
+						<td>End</td>
+						<td>Moves to the end of the line</td>
+					</tr><tr>
+						<td>Left/right arrows</td>
+						<td>Move the cursor to the left or right</td>
+					</tr><tr>
+						<td>Enter</td>
+						<td>Sends the line you just typed to JSForth.  JSForth will then run it and let you know if it worked (by printing either "OK" or an error message)</td>
+					</tr><tr>
+						<td>Up/down arrows</td>
+						<td>Replaces the current line with a command you wrote previously.  When you press Enter, JSForth saves the line you just typed to a history; that history will be available until you exit JSForth.</td>
+					</tr>
+			</tbody></table>
+		</p>
+		<hr />
+		
+		<h1 id="words">Supported standard Forth words</h1>
+		<p>Note that in this manual, I'm using uppercase just out of convention.  The Forth standard does it, all the tutorials I've seen do it, so it made sense to do that here too.  But don't worry - none of these words are case-sensitive (so dup, DUP and Dup all do the same thing).</p>
+		<h2 id="store">@ and !</h2>
+		<p>Gets/sets a number in memory.  This pops the top 2 numbers off the stack; the first (topmost) is treated as a memory address, and the next is the value to put there.  Here's an example:</p>
+		<pre>variable x     \ Creates a variable; now when we use "x" on the next line, its memory address will be pushed on the stack
+42 x !         \ Now x = 42
+x @ .          \ @ gets the value of x, and . prints it, so you should see "42"</pre>
+		
+		<h2 id="leftParen">(</h2>
+		<p>Starts a comment.  For example:</p>
+		<pre>: doop ( more phonetically correct) dup ;</pre>
+		<p>In this goofy and kind of pointless example, created a new word "doop" that just runs "dup".  But I explained why in a comment.  Note that, like in nearly all Forths, there has to be a space after the "(" character for this to work.  Doing this has no effect on the stack, so it's a nice way to add comments in your code.</p>
+		<p>In fact, the Forth community has kind of adopted this type of comment as a way to tell us what a word does to the stack.  If I wanted to do that with my dopey doop example, my code might look something like this:</p>
+		<pre>: doop ( number -- number numberAgain ) dup ;</pre>
+		<p>There's also a form of shorthand that's probably in the standard by now, like using "n" instead of "number", but that is beyond the scope of this manual.</p>
+		
+		<h2 id="comment">\</h2>
+		<p>This is another way to write a comment.  The difference here is that you don't have to "close it".  This is like "//" or "#" in other languages.  For example:</p>
+		<pre>: one year 60 24 * 365 * ;    \ 60 minutes * 24 hours * 365 days</pre>
+
+		<h2 id="dot">.</h2>
+		<p>Removes ("pops") the top number off the stack and displays it.  For example:</p>
+		<pre>17 .         \ Displays: 17; stack: empty</pre>
+		
+		<h2 id="dotS">.S</h2>
+		<p>Displays how many elements are on the stack, and also every number in the stack.  For instance:</p>
+		<pre>20 999 4 .s  \ Displays: "&lt;3> 20 999 4" (3 numbers on the stack, followed by those 3 numbers)</20></pre>
+		17; stack: empty</pre>
+		
+		<h2 id="emit">EMIT</h2>
+		<p>Displays the character representation of the top number on the stack.  For example:</p>
+		<pre>70 EMIT      \ Displays: F; Stack: no change</pre>
+		
+		<h2 id="bl">BL</h2>
+		<p>Pushes the character representation of a space character (32) onto the stack.  For example:</p>
+		<pre>BL EMIT      \ Displays: a space; Stack: no change</pre>
+		
+		<h2 id="cr">CR</h2>
+		<p>Prints a new-line character in the terminal.  This doesn't affect the stack.</p>
+		
+		<h2 id="space">SPACE</h2>
+		<p>Prints a space character in the terminal.  This doesn't affect the stack.</p>
+		
+		<h2 id="spaces">SPACES</h2>
+		<p>Pops the top number off the stack, then prints that many space characters in the terminal.  For example:</p>
+		<pre>10 spaces    \ Displays: 10 spaces; Stack: empty</pre>
+		
+		<h2 id="plus">+</h2>
+		<p>Pops the top two numbers off the stack, adds them, and pushes the result onto the stack.  For example:</p>
+		<pre>3 4 +     \ Displays: Nothing; Stack: 7</pre>
+		
+		<h2 id="minus">-</h2>
+		<p>Pops the top two numbers off the stack, subtracts the second from the first, and pushes the result onto the stack.  For example:</p>
+		<pre>10 2 -    \ Displays: Nothing; Stack: 8</pre>
+		
+		<h2 id="times">*</h2>
+		<p>Pops the top two numbers off the stack, multiplies them, and pushes the result onto the stack.  For example:</p>
+		<pre>5 8 *     \ Displays: Nothing; Stack: 40</pre>
+		
+		<h2 id="slash">/</h2>
+		<p>Pops the top two numbers off the stack, divides the second by the first, and pushes the result onto the stack.  A few important notes here:</p>
+		<ul>
+			<li>This is whole-number ("integer") division; there are no decimal places in the result.</li>
+			<li>Trying to divide by zero will show an error.</li>
+		</ul>
+		<p>For example:</p>
+		<pre>10 2 /     \ Displays: Nothing; Stack: 5</pre>
+		
+		<h2 id="mod">MOD</h2>
+		<p>Pops the top two numbers off the stack, divides the second by the first, and pushes the remainder (die-hard Roman math lovers call this "Modulus" and/or "Modulo" - sorry, I don't have any Roman buddies to confirm the exact usage, so I'm calling it "remainder") onto the stack.  Note that just like with <code>/</code>:</p>
+		<ul>
+			<li>This is whole-number ("integer") division; there are no decimal places in the result.</li>
+			<li>Trying to divide by zero will show an error.</li>
+		</ul>
+		<p>For example:</p>
+		<pre>10 3 MOD     \ Displays: Nothing; Stack: 1</pre>
+		
+		<h2 id="lshift">LSHIFT and RSHIFT</h2>
+		<p>Pops the top two numbers off the stack, and uses the first to bit-shift the second.  This is the kind of thing that most programmers will rarely use, but IMO all programmers should at least be familiar with.  There are all kinds of tutorials on bitwise math out there, so I won't dive too deep into it here.  But for now, here are a few examples:</p>
+		<pre>: left8 8 0 do 1 lshift dup . cr loop ;
+: right8 8 0 do 1 rshift dup . cr loop ;
+256 right8 left8</pre>
+		<p>In this example, I took the number 256, shifted it left 8 times, and at each point printed the new value.  Then I called rshift 8 times and printed that.</p>
+
+		<h2 id="andOrXor">AND, OR, and XOR</h2>
+		<p>Pops the top two numbers off the stack, and uses the first to do bitwise math on the second.  Again, explaining how bitwise math works is beyond the scope of this manual (it's not just a thing used in this specific version of Forth; but <a href="i" target="_blank">here's one that applies to all Forths</a>).  So here are some examples:</p>
+		<pre>5 3 and .     \ Prints 1
+5 3 or .     \ Prints 7
+5 3 xor .     \ Prints 6</pre>
+		<p>In this example, I took the number 256, shifted it left 8 times, and at each point printed the new value.  Then I called rshift 8 times and printed that.</p>
+		
+		<h2 id="gt">></h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if the first number is greater, or 0 if not.  For example:</p>
+		<pre>10 12 > .     \ Displays 0 because 10 is not greater than 12
+10 6 > .      \ Displays -1 because 10 is greater than 6</pre>
+		
+		<h2 id="lt"><</h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if the first number is less, or 0 if not.  For example:</p>
+		<pre>7 5 < .     \ Displays 0 because 7 is not less than 5
+		7 10 < .    \ Displays -1 because 7 is less than 10</pre>
+		
+		<h2 id="equals">=</h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if they are the same, or 0 if not.  For example:</p>
+		<pre>7 7 = .           \ Displays -1 because 7 = 7
+7 123 = .         \ Displays 0 because 7 is not 123 (lol)</pre>
+		
+		<h2 id="notEqual"><></h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if they are NOT the same, or 0 if they ARE.  For example:</p>
+		<pre>7 7 <> .           \ Displays 0 because 7 = 7
+7 123 <> .         \ Displays -1 because 7 is not 123 (lol)</pre>
+		
+		<h2 id="gte">>=</h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if the first number is greater or they are equal, or 0 otherwise.  For example:</p>
+		<pre>10 12 >= .     \ Displays 0 because 10 is not greater than 12
+10 6 >= .      \ Displays -1 because 10 is greater than 6
+10 10 >= .     \ Displays -1 because 10 = 10</pre>
+		
+		<h2 id="lt"><</h2>
+		<p>Pops the top two numbers off the stack, and pushes -1 on the stack if the first number is less or they are equal, or 0 otherwise.  For example:</p>
+		<pre>7 5 <= .     \ Displays 0 because 7 is not less than 5
+7 10 <= .    \ Displays -1 because 7 is less than 10
+7 7 <= .     \ Displays -1 because 7 = 7</pre>
+		
+		<h2 id="dup">DUP</h2>
+		<p>Duplicates the top number on the stack. For example:</p>
+		<pre>5 DUP        \ Displays: nothing; stack: 5 5</pre>
+		
+		<h2 id="drop">DROP</h2>
+		<p>Removes ("pops") the top number from the stack. For example:</p>
+		<pre>1 2 3 DROP   \ Displays: nothing; stack: 1 2</pre>
+		
+		<h2 id="over">OVER</h2>
+		<p>Copies the second number on the stack to the top.  For example:</p>
+		<pre>1 2 3 over   \ Displays: nothing; stack: 1 2 3 2</pre>
+		
+		<h2 id="pick">PICK and ROLL</h2>
+		<p>Pops a number off the stack, and uses that to copy a number onto the stack.  This is one of those words that's easier to demo than it is to explain, so here's an example:</p>
+		<pre>5 999 3 2 1 0 .s      \ Displays the stack, which is now 5 999 3 2 1 0
+4 pick                \ The 4 tells it, "I want the fourth from the top of the stack".  For this demo, I put a 999 there.
+                      \ Originally I had a 4 there, but I thought it would be clearer to use something that stands out more.
+.s                    \ Displays the stack, which is now 5 999 3 2 1 0 999 - it "picked" the 999 and copied it to the top.</pre>
+		<p><code>ROLL</code> works in exactly the same way, except that it also deletes the number.  So let's go back to our example:</p>
+		<pre>5 999 3 2 1 0 .s      \ Displays the stack, which is now 5 999 3 2 1 0
+4 roll                \ Again, the 4 tells it, "I want the fourth from the top of the stack".
+.s                    \ Now the stack is 5 3 2 1 0 999 - Notice the value between 5 and 3 is gone now.</pre>
+		
+		<h2 id="rot">ROT and -ROT</h2>
+		<p>Rotates the top 3 numbers on the stack.  For example:</p>
+		<pre>1 2 3 rot         \ Displays: nothing; stack: 2 3 1 (it moved the 1 to the top)
+rot               \ Now the stack is 3 1 2 (it moved the 2 to the top)
+-rot              \ Stack is 2 3 1 again (undid the first "rot" above)
+-rot              \ Stack is 1 2 3 again
+-rot              \ Stack is 3 1 2 again (it moved the 3 to the bottom)</pre>
+		
+		<h2 id="swap">SWAP</h2>
+		<p>Swaps the top 2 numbers on the stack. For example:</p>
+		<pre>8 11 SWAP    \ Displays: nothing; stack: 11 8 </pre>
+		
+		<h2 id="fill">FILL</h2>
+		<p>Fills a block of memory with a value.  Here's how this works: first, it pops a number off the stack.  We'll call that the value.  Pops another number off the stack, we'll call that the count.  Pops a third number off the stack; that's a memory address.  Then it will "fill" every memroy address from the start address to the count with the value.  Here's an example:</p>
+		<pre>1 8 7 FILL   \ Displays: nothing; stack: no change.  But now memory addresses 1 to 9 are set to "7".</pre>
+		
+		<h2 id="2dup">2DUP</h2>
+		<p>Duplicates the top two numbers on the stack.  Example:</p>
+		<pre>3 4 2DUP     \ Displays: nothing; stack: 3 4 3 4</pre>
+		
+		<h2 id="2drop">2DROP</h2>
+		<p>Literally the same as calling <code>DEOP</code> twice.  As in:</p>
+		<pre>3 4 2DROP    \ Displays: nothing; stack: empty</pre>
+		
+		<h2 id="2over">2OVER</h2>
+		<p>Copies the third and fourth numbers on the stack to the top.  For example:</p>
+		<pre>1 2 3 4 2OVER    \ Displays: nothing; stack: 1 2 3 4 1 2</pre>
+		
+		<h2 id="2swap">2SWAP</h2>
+		<p>Swaps the third and fourth numbers on the stack with the first and second.  For example:</p>
+		<pre>1 2 3 4 2SWAP    \ Displays: nothing; stack: 3 4 1 2</pre>
+		
+		<h2 id="2store">2! and 2@</h2>
+		<p>These work like <code>!</code> and <code>@</code> except that they work with 2 numbers in memory.  For example:</p>
+		<pre>10 20 1 2!       \ Now memory address 1 is 20, and memory address 2 is 10 (yes it's backwards, but that's oaky, cuz watch the next line).  The stack is empty.
+1 2@ .S          \ Now the stack is 10 20 (and .S will show that).  Same order you entered them in.  2@ doesn't change what's in memory.</pre>
+		
+		<h2 id="others">To Be Documented</h2>
+		<ul>
+			<li>/mod</li>
+			<li>*/</li>
+			<li>*/mod</li>
+			<li>+!</li>
+			<li>0=</li>
+			<li>0<</li>
+			<li>0></li>
+			<li>1+</li>
+			<li>1-</li>
+			<li>ABS</li>
+			<li>INVERT</li>
+			<li>IF ... THEN (no ELSE yet)</li>
+			<li>DO ... LOOP</li>
+			<li>: and ;</li>
+			<li>CELLS</li>
+			<li>CELL+</li>
+			<li>?DUP</li>
+			<li>PLACE</li>
+			<li>+PLACE</li>
+			<li>MOVE</li>
+		</ul>
+		<p>For docs on how these work - or at least, how they ought to work, see <a href="https://forth-standard.org/standard/core" target="_blank">the Forth standard</a></p>
+		
+		<hr /><h1 id="JSForthWords">JSForth-specific words</h1>
+		
+		<h2 id="pow">^</h2>
+		<p>This calculates exponents.  For example:</p>
+		<code>
+		2 2 * 2 * .    \ 2 * 2 * 2 = 8.  OR you could do...
+		2 3 ^ .        \ 2 to the third power = 8
+		</code>
+		<h2 id="clear">CLEAR</h2>
+		<p>Clears the stack, mo matter how many nnumbers are on it.  For example:</p>
+		<code>
+		1 2 3 4 .S     \ This would print the stack, which would contain numbers 1-4
+		CLEAR .S       \ Again, .S would print the stack, but the stack is now empty.
+		</code>
+		<h2 id="cls">CLS</h2>
+		<p>Clears the terminal screen.  This has no stack effects.</p>
+		<h2 id="debug">DEBUG</h2>
+		<p>Turns debug mode on or off.  WHen debug mode is on, JSForth will log what it's doing to the JS console (in the browser developer tools)</p>
+		<h2 id="js">JS</h2>
+		<p>Runs JavaScript code.  This word expects two numbers to be on the stack: the topmost being the length of the string and the next being a pointer to the string in memory.  For example:
+		<pre>S" alert('Check it out!');" js</pre>
+		<p>When you run <code>S"</code>, the two numbers I just listed are pushed onto the stack.  Then JSForth sees the word <code>JS</code> and evaluates that astring as JavaScript.  If there's an error, it'll show up in the terminal.</p>
+		<h2 id="prompt">PROMPT</h2>
+		<p>Changes the prompt (the ">>>") to something else.  For example:</p>
+		<pre>10 0 ! 13 1 ! 0 2 prompt</pre>
+		<p>The end result is that there is no prompt.  This is actually my preference, since most of the Forths I use don't have a prompt.  But you can set it to whatever you like.  Here's how that works:</p>
+		<ol>
+			<li><code>10 0 !</code> puts the number 10 (a carriage return or <code>\r</code>) into memory address #0</li>
+			<li><code>13 1 !</code> puts the number 13 (a line feed or <code>\n</code>) into memory address #1</li>
+			<li><code>0 2 prompt</code> tells JSForth to use memory address #0 (which now contains <code>\r\n</code>) as the new prompt.</li>
+		</ol>
+		<p>However, there is a simpler way, using the <code>JS</code> word.  That would be by setting the <code>FORTH_PROMPT</code> JS variable.  Here's how to do that:</p>
+		<pre>s" FORTH_PROMPT = '\r\nGo: ';" js</pre>
+		<p>Either way, you can do all kinds of cool things for the prompt using ANSI escape codes.</p>
+		<!--
+		ALLOCATE ROWS COLS
+		Words I'd like to add:
+			INCLUDE (from localStorage)
+			SAVE (to localStorage)
+			FETCH (for communicating with external servers)
+			Words for canvas, audio, maybe DOM, etc.
+		-->
+	</main>
+</body>
+</html>
